@@ -1,7 +1,7 @@
 /**
  * jQuery.Pluginizer
  * Framework for creating specialized jQuery plugins
- * @author Karol Kuczmarski
+ * @author Karol Kuczmarski "Xion"
  */
 
 
