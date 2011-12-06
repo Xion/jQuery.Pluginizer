@@ -62,9 +62,13 @@ $.pluginize = function(name, methods)
 * <code>name</code> - Plugin name, and also a name for function that will be attached to <code>$()</code> objects.
                       Should be unique. Using valid JavaScript identifiers is recommended.
 * <code>methods</code> - Methods exposed by the plugin.
+* <code>initialData</code> - Plugin's initial data.
 
 The <code>methods</code> parameter can be either a JavaScript object or a function returning such object.
 
 If it's a function, it can accept a single argument: an object that can be populated with plugin-specific data.
-It will be stored as properly namespaced <code>$.data</code> within DOM element. The DOM element itself (<code>$</code>-wrapped)
-will be accessible through <code>this</code> inside the <code>methods</code> function.
+It will be stored as properly namespaced <code>$.data</code> within DOM element. This data object is initialized
+using <code>initialData</code> argument, if present.
+
+The DOM element itself (<code>$</code>-wrapped) will be accessible through <code>this</code> inside the
+<code>methods</code> function.
