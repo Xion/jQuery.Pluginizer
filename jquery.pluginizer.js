@@ -10,36 +10,38 @@
     $.pluginize = function(name, methods) {
         var fn = {};
         fn[name] = function(arg) {
-            var $this = this;
+            var rest = [].slice.call(arguments, 1);
+
+            return this.each(function() {
+                var $this = $(this);
             
-            // 'methods' can be a function that returns the methods dictionary
-            if (typeof methods === 'function') {
-                var data = (function() {
-                    // note that the following relies on fact that object passed to $.data()
-                    // is stored by as-is and not copied, because we utilize reference to it directly
-                    var domData  = $this.data(name) || {};
-                    $this.data(name, domData);
-                    return domData;
-                })();
+                // methods can be supplied as a function or as object
+                var _methods = methods;
+                if (typeof _methods === 'function') {
+                    var data = (function() {
+                        // note that the following relies on fact that object passed to $.data()
+                        // is stored by as-is and not copied, because we utilize reference to it directly
+                        var domData  = $this.data(name) || {};
+                        $this.data(name, domData);
+                        return domData;
+                    })();
+                    
+                    _methods = _methods.apply($this, [data]);
+                }
                 
-                methods = methods.apply($this, [data]);
-            }
-            
-            // dispatch call to appropriate method
-            if (typeof arg === 'string') {
-                var method = arg;
-                var methodArgs = [].slice.call(arguments, 1);   // omit method name
-                if (methods[method])
-                    methods[method].apply($this, methodArgs);
-                else
-                    $.error("Method '" + method + "' does not exist on $." + name);
-            }
-            else {
-                if ('init' in methods)
-                    methods.init.apply($this, [arg]);
-            }
-            
-            return $this;
+                // dispatch call to appropriate method
+                if (typeof arg === 'string') {
+                    var method = arg;
+                    if (_methods[method])
+                        _methods[method].apply($this, rest);
+                    else
+                        $.error("Method '" + method + "' does not exist on $." + name);
+                }
+                else {
+                    if ('init' in _methods)
+                        _methods.init.apply($this, [arg]);
+                }
+            });
         };
         $.fn.extend(fn);
     };
