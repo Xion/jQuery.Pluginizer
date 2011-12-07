@@ -87,3 +87,7 @@ $('.items').foo();				// initializes the plugin 'foo' for every element with cla
 $('.items').foo('load');			// invoke 'load' method of 'foo' plugin
 $('.items:last').foo('addItems', items);	// call 'addItems' method with parameter
 ```
+
+### License
+
+_jQuery.Pluginizer_ uses the [MIT license](http://en.wikipedia.org/wiki/MIT_License).
