@@ -52,7 +52,7 @@ $(document).ready(function() {
 Thanks to this encapsulation, we can now effortlessly use our stream on multiple pages - or possibly even more
 than once on single page.
 
-## Usage
+## Pluginizing your code
 
 <code>$.pluginize</code> is the sole function exposed by _jQuery.Pluginizer_:
 
@@ -72,3 +72,18 @@ using <code>initialData</code> argument, if present.
 
 The DOM element itself (<code>$</code>-wrapped) will be accessible through <code>this</code> inside the
 <code>methods</code> function.
+
+## Using the plugin
+
+<code>$.pluginize</code> adds a function of with given <code>name</code> to jQuery <code>$()</code> objects.
+Calling it can either initialize the plugin functionality for given DOM object (using the <code>init</code> method),
+or one of the other <code>methods</code>:
+
+```javascript
+$.pluginize('foo', ...);
+
+$('.items').foo();				// initializes the plugin 'foo' for every element with class 'items'
+// $('.items').foo('init');			// equivalent to the call above
+$('.items').foo('load');			// invoke 'load' method of 'foo' plugin
+$('.items:last').foo('addItems', items);	// call 'addItems' method with parameter
+```
