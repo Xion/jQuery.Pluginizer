@@ -57,7 +57,7 @@ than once on single page.
 <code>$.pluginize</code> is the sole function exposed by _jQuery.Pluginizer_:
 
 ```javascript
-$.pluginize = function(name, methods)
+$.pluginize = function(name, methods, initialData)
 ```
 * <code>name</code> - Plugin name, and also a name for function that will be attached to <code>$()</code> objects.
                       Should be unique. Using valid JavaScript identifiers is recommended.
