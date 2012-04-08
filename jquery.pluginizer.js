@@ -21,11 +21,10 @@
                     var data = (function() {
                         // note that the following relies on fact that object passed to $.data()
                         // is stored by as-is and not copied, because we utilize reference to it directly
-                        var domData  = $this.data(name) || new Object(initialData);
+                        var domData  = $this.data(name) || $.extend({}, initialData);
                         $this.data(name, domData);
                         return domData;
                     })();
-                    
                     _methods = _methods.apply($this, [data]);
                 }
                 
